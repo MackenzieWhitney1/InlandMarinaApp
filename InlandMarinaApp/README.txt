@@ -1,0 +1,1 @@
+﻿This application needs an appsettings.json with context string to work.

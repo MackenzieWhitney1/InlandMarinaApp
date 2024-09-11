@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Slips";
+}
+
+<h1>Available Slips</h1>
+<div>
+    <select id="uxDocks" asp-items="@ViewBag.Docks" class="form-select"></select>
+</div>
+
+<div id="uxDisplay">
+    @await Component.InvokeAsync("UnleasedSlipsByDock", "0")
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#uxDocks").change(function () {
+                var dockID = $("#uxDocks").val();
+                $.ajax({
+                    method: 'GET',
+                    url: '/Slips/GetUnleasedSlips',
+                    data: { id: dockID }
+                }).done(function (result, statusText, xhdr) {
+                    $("#uxDisplay").html(result);
+                }); @* closes done *@
+                    }); @* closes change *@
+                }); @* closes ready *@
+    </script>
+}
